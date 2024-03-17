@@ -4,8 +4,12 @@ import { Text, View } from "@/components/Themed";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function TabOneScreen() {
-  const { userInfo, promptAsyncGoogle, promptAsyncApple, appleAuthAvailable } =
-    useAuth()!;
+  const {
+    userInfo,
+    promptAsyncGoogle: googleLogin,
+    appleLogin,
+    appleAuthAvailable,
+  } = useAuth()!;
 
   return (
     <View style={styles.container}>
@@ -16,9 +20,9 @@ export default function TabOneScreen() {
         </>
       )}
       {appleAuthAvailable && (
-        <Button title="Sign in with Apple" onPress={() => promptAsyncApple()} />
+        <Button title="Sign in with Apple" onPress={() => appleLogin()} />
       )}
-      <Button title="Sign in with Google" onPress={() => promptAsyncGoogle()} />
+      <Button title="Sign in with Google" onPress={() => googleLogin()} />
     </View>
   );
 }

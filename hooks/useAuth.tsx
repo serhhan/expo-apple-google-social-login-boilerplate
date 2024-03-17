@@ -13,7 +13,7 @@ interface AuthContextType {
     options?: AuthRequestPromptOptions | undefined
   ) => Promise<AuthSessionResult>;
   appleAuthAvailable: boolean;
-  promptAsyncApple: () => Promise<void>;
+  appleLogin: () => Promise<void>;
 }
 
 WebBrowser.maybeCompleteAuthSession();
@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  const promptAsyncApple = async () => {
+  const appleLogin = async () => {
     try {
       const credential = await AppleAuthentication.signInAsync({
         requestedScopes: [
@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         userInfo,
         promptAsyncGoogle,
         appleAuthAvailable,
-        promptAsyncApple,
+        appleLogin,
       }}
     >
       {children}
