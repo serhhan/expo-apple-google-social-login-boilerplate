@@ -1,6 +1,6 @@
 # React Native Google Authentication Boilerplate
 
-This boilerplate provides a straightforward setup for integrating Google authentication into your React Native application using Expo. It utilizes `expo-auth-session` for the auth session management and `@react-native-async-storage/async-storage` for persisting user data locally.
+This boilerplate provides a straightforward setup for integrating Google and Apple authentication into your React Native application using Expo. It utilizes `expo-auth-session` for the auth session management and `@react-native-async-storage/async-storage` for persisting user data locally.
 
 ## Getting Started
 
