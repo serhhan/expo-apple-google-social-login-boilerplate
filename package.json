@@ -32,7 +32,6 @@
     "expo-auth-session": "~5.4.0",
     "expo-crypto": "~12.8.1",
     "@expo/webpack-config": "~19.0.1",
-    "@react-native-async-storage/async-storage": "1.21.0",
     "expo-apple-authentication": "~6.3.0",
     "expo-secure-store": "~12.8.1"
   },
