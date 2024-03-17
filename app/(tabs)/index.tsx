@@ -1,65 +1,24 @@
 import { Button, StatusBar, StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
-import { AuthProvider, useAuth } from "@/hooks/useAuth";
-import * as AppleAuthentication from "expo-apple-authentication";
-import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function TabOneScreen() {
-  const { userInfo, promptAsync } = useAuth()!;
-  const [appleAuthAvailable, setAppleAuthAvailable] = useState(false);
-
-  useEffect(() => {
-    const checkAvailable = async () => {
-      const isAvailable = await AppleAuthentication.isAvailableAsync();
-      setAppleAuthAvailable(isAvailable);
-    };
-    checkAvailable();
-  }, []);
-
-  const login = async () => {
-    try {
-      const credential = await AppleAuthentication.signInAsync({
-        requestedScopes: [
-          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-          AppleAuthentication.AppleAuthenticationScope.EMAIL,
-        ],
-      });
-      console.log(credential);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getAppleAuthContent = () => {
-    return (
-      <AppleAuthentication.AppleAuthenticationButton
-        buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-        buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-        cornerRadius={5}
-        style={{ width: 200, height: 44 }}
-        onPress={login}
-      />
-    );
-  };
+  const { userInfo, promptAsyncGoogle, promptAsyncApple, appleAuthAvailable } =
+    useAuth()!;
 
   return (
     <View style={styles.container}>
-      {userInfo ? (
+      {userInfo && (
         <>
           <Text style={styles.title}>Name: {userInfo.name}</Text>
           <Text>Email: {userInfo.email}</Text>
         </>
-      ) : (
-        <Text>No user info available</Text>
       )}
-      {appleAuthAvailable ? (
-        getAppleAuthContent()
-      ) : (
-        <Text>Apple auth unavailable</Text>
+      {appleAuthAvailable && (
+        <Button title="Sign in with Apple" onPress={() => promptAsyncApple()} />
       )}
-      <Button title="Sign in with Google" onPress={() => promptAsync()} />
+      <Button title="Sign in with Google" onPress={() => promptAsyncGoogle()} />
     </View>
   );
 }
