@@ -14,6 +14,7 @@ interface AuthContextType {
   ) => Promise<AuthSessionResult>;
   appleAuthAvailable: boolean;
   appleLogin: () => Promise<void>;
+  appleLogout: () => Promise<void>;
 }
 
 WebBrowser.maybeCompleteAuthSession();
@@ -91,6 +92,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const appleLogout = async () => {
+    await SecureStore.deleteItemAsync("@appleUser");
+    setAppleUserToken(null);
+  };
+
   const checkAppleSignInAvailability = async () => {
     const isAvailable = await AppleAuthentication.isAvailableAsync();
     setAppleAuthAvailable(isAvailable);
@@ -103,6 +109,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         promptAsyncGoogle,
         appleAuthAvailable,
         appleLogin,
+        appleLogout,
       }}
     >
       {children}
