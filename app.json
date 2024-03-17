@@ -15,7 +15,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.caser.timetraveler"
+      "bundleIdentifier": "com.caser.timetraveler",
+      "usesAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {
