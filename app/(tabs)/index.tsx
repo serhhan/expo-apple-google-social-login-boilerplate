@@ -1,8 +1,8 @@
-import { Button, StatusBar, StyleSheet } from "react-native";
-
-import { Text, View } from "@/components/Themed";
+import React from "react";
+import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
 import { useAuth } from "@/hooks/useAuth";
 import { FontAwesome5 } from "@expo/vector-icons";
+import useDimension from "@/hooks/useDimension"; // Ensure the hook is correctly imported
 
 export default function LoginScreen() {
   const {
@@ -11,6 +11,14 @@ export default function LoginScreen() {
     appleLogin,
     appleAuthAvailable,
   } = useAuth()!;
+
+  const { dWidth } = useDimension(); // Destructure to get width
+
+  // Dynamically adjust button width based on screen width
+  const buttonWidth = dWidth * 0.8; // Adjust the percentage as needed
+
+  // Styles are now a function to incorporate dynamic sizing
+  const styles = getStyles(buttonWidth);
 
   return (
     <View style={styles.container}>
@@ -42,34 +50,36 @@ export default function LoginScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  googleButton: {
-    display: "flex",
-    justifyContent: "center",
-    width: 200,
-    height: 44,
-    backgroundColor: "white",
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  appleButton: {
-    display: "flex",
-    justifyContent: "center",
-    width: 200,
-    height: 44,
-    backgroundColor: "black",
-  },
-  appleButtonText: {
-    color: "white",
-  },
-});
+// Convert StyleSheet to a function to incorporate dynamic sizing
+function getStyles(buttonWidth: number) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    googleButton: {
+      justifyContent: "center",
+      width: buttonWidth,
+      height: 44,
+      backgroundColor: "white",
+      borderColor: "black",
+      borderWidth: 1,
+      borderRadius: 5,
+    },
+    appleButton: {
+      justifyContent: "center",
+      width: buttonWidth,
+      height: 44,
+      backgroundColor: "black",
+      borderRadius: 5,
+    },
+    appleButtonText: {
+      color: "white",
+    },
+  });
+}
