@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useAuth } from "@/hooks/useAuth";
-import { FontAwesome5 } from "@expo/vector-icons";
 import useDimension from "@/hooks/useDimension"; // Ensure the hook is correctly imported
+import { IconButton } from "@/components/Atoms/Button";
 
 export default function LoginScreen() {
   const {
@@ -29,23 +29,9 @@ export default function LoginScreen() {
         </>
       )}
       {appleAuthAvailable && (
-        <FontAwesome5.Button
-          name="apple"
-          onPress={() => appleLogin()}
-          style={styles.appleButton}
-          iconStyle={{ fontSize: 24 }}
-        >
-          <Text style={styles.appleButtonText}>Continue with Apple</Text>
-        </FontAwesome5.Button>
+        <IconButton type="apple" onPress={() => appleLogin()} />
       )}
-      <FontAwesome5.Button
-        name="google"
-        onPress={() => googleLogin()}
-        iconStyle={{ color: "black" }}
-        style={styles.googleButton}
-      >
-        <Text>Continue with Google</Text>
-      </FontAwesome5.Button>
+      <IconButton type="google" onPress={() => googleLogin()} />
     </View>
   );
 }
