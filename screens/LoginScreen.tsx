@@ -16,9 +16,12 @@ export default function LoginScreen() {
 
   // Dynamically adjust button width based on screen width
   const buttonWidth = dWidth * 0.8; // Adjust the percentage as needed
+  const basePadding = 32;
+
+  const responsivePadding = dWidth < 768 ? basePadding : basePadding * 2;
 
   // Styles are now a function to incorporate dynamic sizing
-  const styles = getStyles(buttonWidth);
+  const styles = getStyles(buttonWidth, responsivePadding);
 
   return (
     <View style={styles.container}>
@@ -37,12 +40,14 @@ export default function LoginScreen() {
 }
 
 // Convert StyleSheet to a function to incorporate dynamic sizing
-function getStyles(buttonWidth: number) {
+function getStyles(buttonWidth: number, responsivePadding: number) {
   return StyleSheet.create({
     container: {
       flex: 1,
+      gap: 8,
       alignItems: "center",
-      justifyContent: "center",
+      justifyContent: "flex-end",
+      padding: responsivePadding,
     },
     title: {
       fontSize: 20,
